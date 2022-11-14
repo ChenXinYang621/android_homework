@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">IntentActivity</string>
+    <string name="send">SEND</string>
+    <string name="activity2_name">Second Activity</string>
+    <string name="activity1_name">First Activity</string>
+    <string name="reply">REPLY</string>
+    <string name="enter_your_message_here">Enter Your Message Here</string>
+    <string name="delete_any_text_in_this_field">(Delete any text in this field)</string>
+    <string name="message_received">Message Received</string>
+
+</resources>

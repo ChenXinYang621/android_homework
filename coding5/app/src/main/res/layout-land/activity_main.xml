@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/button_jump"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/jump"
+        android:textSize="32sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/shop_item1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/apple"
+                android:textSize="50sp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/shop_item2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/banana"
+                android:textSize="50sp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/shop_item3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/egg"
+                android:textSize="50sp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/shop_item4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/milk"
+                android:textSize="50sp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/shop_item5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pear"
+                android:textSize="50sp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/shop_item6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/strawberry"
+                android:textSize="50sp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/shop_item7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/shoes"
+                android:textSize="50sp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/shop_item8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/coat"
+                android:textSize="50sp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/shop_item9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/jacket"
+                android:textSize="50sp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/shop_item10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pants"
+                android:textSize="50sp"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

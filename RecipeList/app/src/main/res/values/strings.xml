@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">RecipeList</string>
+    <string name="title">this is a title</string>
+    <string name="content">this is content</string>
+    <string name="donut_details">donut delicious</string>
+    <string name="froyo_details">froyo nice</string>
+    <string name="ice_cream_details">ice cream no!</string>
+    <string name="photo">this is photo</string>
+    <string name="test">test</string>
+</resources>

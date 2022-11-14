@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        >
+
+        <Button
+            android:id="@+id/button_toast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_200"
+            android:text="@string/toast"
+            android:textColor="#5E35B1" />
+
+        <Button
+            android:id="@+id/button_zero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:text="@string/zero"
+            android:textColor="@color/white"
+            android:layout_marginTop="30dp"
+            />
+
+        <Button
+            android:id="@+id/button_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/purple_500"
+            android:text="@string/count"
+            android:textColor="@color/white"
+            android:layout_marginTop="30dp"
+            />
+
+        <Button
+            android:id="@+id/button_jump"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="#4CAF50"
+            android:text="@string/jump"
+            android:textColor="#263238" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/show_count"
+        android:layout_width="0dp"
+        android:layout_weight="4.5"
+        android:background="#FFFF00"
+        android:gravity="center"
+        android:text="@string/toast_initial_value"
+        android:textColor="@color/purple_500"
+        android:textSize="200sp"
+        android:textStyle="bold"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

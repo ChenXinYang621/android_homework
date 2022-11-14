@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Toast Checked</string>
+    <string name="apple">apple</string>
+    <string name="orange">orange</string>
+    <string name="pear">pear</string>
+    <string name="strawberry">strawberry</string>
+    <string name="peach">peach</string>
+    <string name="show_toast">Show Toast</string>
+</resources>

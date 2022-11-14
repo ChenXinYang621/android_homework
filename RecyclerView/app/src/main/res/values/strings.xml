@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RecyclerView</string>
+    <string name="add_tab">add tab</string>
+    <string name="view_initial">TextView</string>
+</resources>
