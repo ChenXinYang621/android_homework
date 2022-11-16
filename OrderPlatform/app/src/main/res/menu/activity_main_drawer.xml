@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/keyboard"
+            android:icon="@drawable/ic_keyboard"
+            android:title="@string/keyboard" />
+        <item
+            android:id="@+id/living_room"
+            android:icon="@drawable/ic_living_room"
+            android:title="@string/living_room" />
+        <item
+            android:id="@+id/monitor"
+            android:icon="@drawable/ic_monitor"
+            android:title="@string/monitor" />
+        <item
+            android:id="@+id/food"
+            android:icon="@drawable/ic_food"
+            android:title="@string/food" />
+    </group>
+</menu>

@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Order Platform</string>
     <string name="shop_cart">shop cart</string>
+    <string name="keyboard">keyboard</string>
+    <string name="living_room">living room</string>
+    <string name="monitor">monitor</string>
+    <string name="food">food</string>
+    <string name="first_username">noname</string>
+    <string name="initial_avatar">initial_avatar</string>
+    <string name="initial_description">there is nothing here</string>
 </resources>
