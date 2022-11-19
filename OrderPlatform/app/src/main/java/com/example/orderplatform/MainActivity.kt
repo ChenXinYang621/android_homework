@@ -4,8 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),
+    NavigationView.OnNavigationItemSelectedListener {
+//    private val drawer: DrawerLayout = findViewById(R.id.drawer_layout)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -19,6 +25,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+        when (item.itemId) {
+            R.id.action_setting -> {
+                drawer.openDrawer(GravityCompat.START)
+            }
+        }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+
+        }
+        return false
+    }
+
+
 }

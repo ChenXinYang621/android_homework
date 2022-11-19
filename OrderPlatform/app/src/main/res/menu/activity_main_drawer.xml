@@ -1,21 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="none">
-        <item
-            android:id="@+id/keyboard"
-            android:icon="@drawable/ic_keyboard"
-            android:title="@string/keyboard" />
-        <item
-            android:id="@+id/living_room"
-            android:icon="@drawable/ic_living_room"
-            android:title="@string/living_room" />
-        <item
-            android:id="@+id/monitor"
-            android:icon="@drawable/ic_monitor"
-            android:title="@string/monitor" />
-        <item
-            android:id="@+id/food"
-            android:icon="@drawable/ic_food"
-            android:title="@string/food" />
-    </group>
+
+    <item android:title="@string/catalogue">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/keyboard"
+                    android:icon="@drawable/ic_dinner"
+                    android:title="@string/dinner" />
+                <item
+                    android:id="@+id/living_room"
+                    android:icon="@drawable/ic_drink"
+                    android:title="@string/drink" />
+                <item
+                    android:id="@+id/monitor"
+                    android:icon="@drawable/ic_fastfood"
+                    android:title="@string/fastfood" />
+                <item
+                    android:id="@+id/food"
+                    android:icon="@drawable/ic_desert"
+                    android:title="@string/desert" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="@string/personal_data">
+        <menu>
+            <item
+                android:id="@+id/data"
+                android:icon="@drawable/ic_personal_data"
+                android:title="@string/info" />
+            <item
+                android:id="@+id/share"
+                android:icon="@drawable/ic_share"
+                android:title="@string/share" />
+        </menu>
+    </item>
 </menu>

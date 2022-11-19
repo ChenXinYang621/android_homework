@@ -1,11 +1,17 @@
 <resources>
     <string name="app_name">Order Platform</string>
     <string name="shop_cart">shop cart</string>
-    <string name="keyboard">keyboard</string>
-    <string name="living_room">living room</string>
-    <string name="monitor">monitor</string>
-    <string name="food">food</string>
+    <string name="dinner">dinner</string>
+    <string name="drink">drink</string>
+    <string name="desert">desert</string>
+    <string name="fastfood">fastfood</string>
     <string name="first_username">noname</string>
     <string name="initial_avatar">initial_avatar</string>
     <string name="initial_description">there is nothing here</string>
+    <string name="settings">settings</string>
+    <string name="todo">todo</string>
+    <string name="personal_data">Personal Data</string>
+    <string name="info">info</string>
+    <string name="share">share</string>
+    <string name="catalogue">catalogue</string>
 </resources>
