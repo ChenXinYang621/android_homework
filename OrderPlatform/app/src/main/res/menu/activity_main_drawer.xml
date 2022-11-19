@@ -5,19 +5,19 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/keyboard"
+                    android:id="@+id/dinner"
                     android:icon="@drawable/ic_dinner"
                     android:title="@string/dinner" />
                 <item
-                    android:id="@+id/living_room"
+                    android:id="@+id/drink"
                     android:icon="@drawable/ic_drink"
                     android:title="@string/drink" />
                 <item
-                    android:id="@+id/monitor"
-                    android:icon="@drawable/ic_fastfood"
+                    android:id="@+id/fast_food"
+                    android:icon="@drawable/ic_fast_food"
                     android:title="@string/fastfood" />
                 <item
-                    android:id="@+id/food"
+                    android:id="@+id/desert"
                     android:icon="@drawable/ic_desert"
                     android:title="@string/desert" />
             </group>
