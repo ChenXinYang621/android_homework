@@ -5,16 +5,21 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.GravityCompat
-import androidx.core.view.size
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.example.orderplatform.adapter.PagerAdapter
+import com.example.orderplatform.database.MDataBaseHelper
+import com.example.orderplatform.database.ProductDao
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private var drawer: DrawerLayout? = null
 
     private var mViewPager: ViewPager2? = null
+
+    private var mHelper: MDataBaseHelper? = null
+//
+    private var productDao: ProductDao? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,15 +28,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val mNavigationView: NavigationView = findViewById(R.id.nav_view)
         mNavigationView.setNavigationItemSelectedListener(this)
 
-        val pagerAdapter = PagerAdapter(
-            supportFragmentManager, lifecycle, 6
-        )
-        val mViewPager: ViewPager2 = findViewById(R.id.pager)
-        mViewPager.adapter = pagerAdapter
+        val pagerAdapter = PagerAdapter(supportFragmentManager, lifecycle, 6)
+        mViewPager = findViewById(R.id.pager)
+        mViewPager?.adapter = pagerAdapter
 
-        this.mViewPager = mViewPager
-
+        mNavigationView.setCheckedItem(R.id.dinner)
         setSupportActionBar(findViewById(R.id.toolbar))
+
+        productDao = mHelper?.let { ProductDao.getInstance() }
+//        initData()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mHelper = MDataBaseHelper.getInstance(this)
+        mHelper!!.openWriteLink()
+        mHelper!!.closeLink()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mHelper!!.closeLink()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -39,6 +56,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onCreateOptionsMenu(menu)
     }
 
+    // 设置 AppBar 中的切换
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_setting -> {
@@ -48,6 +66,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onOptionsItemSelected(item)
     }
 
+    // 配置 NavigationView 进行多 Fragment 切换
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.dinner -> {
@@ -64,4 +83,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return false
     }
 
+    private fun initData() {
+
+//        productDao!!.insert(product = Product(""))
+    }
 }

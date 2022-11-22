@@ -17,4 +17,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="test">test</string>
+    <string name="main_photo">main_photo</string>
+    <string name="title">this is a title</string>
+    <string name="content">this is a content</string>
 </resources>
