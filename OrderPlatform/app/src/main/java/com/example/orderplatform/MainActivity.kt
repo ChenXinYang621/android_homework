@@ -2,6 +2,7 @@ package com.example.orderplatform
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.GravityCompat
@@ -10,7 +11,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.orderplatform.adapter.PagerAdapter
 import com.example.orderplatform.database.MDataBaseHelper
 import com.example.orderplatform.database.ProductDao
+import com.example.orderplatform.entity.Product
 import com.google.android.material.navigation.NavigationView
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private var drawer: DrawerLayout? = null
@@ -18,13 +21,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var mViewPager: ViewPager2? = null
 
     private var mHelper: MDataBaseHelper? = null
-//
+
+    // 初始化 dao 层，进行 sql 操作
     private var productDao: ProductDao? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         drawer = findViewById(R.id.drawer_layout)
+
+        // 创建数据库连接
+        mHelper = MDataBaseHelper.getInstance(this)
+
         val mNavigationView: NavigationView = findViewById(R.id.nav_view)
         mNavigationView.setNavigationItemSelectedListener(this)
 
@@ -36,14 +44,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(findViewById(R.id.toolbar))
 
         productDao = mHelper?.let { ProductDao.getInstance() }
-//        initData()
     }
 
     override fun onStart() {
         super.onStart()
-        mHelper = MDataBaseHelper.getInstance(this)
         mHelper!!.openWriteLink()
-        mHelper!!.closeLink()
+        mHelper!!.openReadLink()
+        initData()
     }
 
     override fun onStop() {
@@ -84,7 +91,33 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun initData() {
-
-//        productDao!!.insert(product = Product(""))
+        val value = productDao!!.deleteAll()
+        Log.d("deleteName", "delete $value data")
+        productDao!!.insert(
+            product = Product(
+                1,
+                "鸡爪",
+                0,
+                10,
+                R.string.鸡爪,
+                R.drawable.dinner_pic1,
+                0
+            )
+        )
+        productDao!!.insert(
+            product = Product(
+                2,
+                "冰红茶",
+                1,
+                5,
+                R.string.冰红茶,
+                R.drawable.drink_pic1,
+                0
+            )
+        )
+        val productList = productDao!!.findProductByCatalogue(1)
+        for (product in productList) {
+            Log.d("test_show", product.name.toString())
+        }
     }
 }

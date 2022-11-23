@@ -1,19 +1,15 @@
 package com.example.orderplatform.database
 
-import android.annotation.SuppressLint
-import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.orderplatform.entity.Product
 
 class MDataBaseHelper private constructor(context: Context) :
     SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
-
     // 单例模式进行初始化
     // 针对内存泄露问题 https://juejin.cn/post/6987258309648597005
     companion object {
-        const val TABLE_NAME = "product"
+        const val PRODUCT_TABLE = "product"
 
         const val DB_NAME = "main.db"
 
@@ -46,8 +42,8 @@ class MDataBaseHelper private constructor(context: Context) :
 
     override fun onCreate(db: SQLiteDatabase?) {
         val create =
-            "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
-                    "(id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+            "CREATE TABLE IF NOT EXISTS " + PRODUCT_TABLE +
+                    "(id integer NOT NULL PRIMARY KEY, " +
                     "name varchar, " +
                     "kind integer, " +
                     "price integer, " +
@@ -89,6 +85,4 @@ class MDataBaseHelper private constructor(context: Context) :
             mWDB = null
         }
     }
-
-
 }
