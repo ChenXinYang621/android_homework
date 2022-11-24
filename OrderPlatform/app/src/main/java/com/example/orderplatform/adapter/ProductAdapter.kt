@@ -12,17 +12,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.orderplatform.MoreContent
 import com.example.orderplatform.R
 
-class DinnerAdapter(
+class ProductAdapter(
     val context: Context,
     private val mTitle: List<String>,
     private val mPrice: List<Int>,
     private val mDescription: List<Int>,
     private val mPicture: List<Int>
-) : RecyclerView.Adapter<DinnerAdapter.DinnerViewHolder>() {
+) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
 
     // 申明为 inner 的内部类可以访问外部变量
-    inner class DinnerViewHolder(itemView: View) :
+    inner class ProductViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         val mTitleView: TextView = itemView.findViewById(R.id.product_title)
@@ -46,12 +46,12 @@ class DinnerAdapter(
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DinnerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val mItemView = mInflater.inflate(R.layout.product_item, parent, false)
-        return DinnerViewHolder(mItemView)
+        return ProductViewHolder(mItemView)
     }
 
-    override fun onBindViewHolder(holder: DinnerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.mTitleView.text = mTitle[position]
         holder.mPriceView.text = mPrice[position].toString()
         holder.mImageView.setImageResource(mPicture[position])

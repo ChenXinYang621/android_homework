@@ -37,9 +37,10 @@ class PagerAdapter(
                 productFragment.arguments = bundle
                 return productFragment
             }
-
-            4 -> return InfoFragment()
+            4 -> {
+                return InfoFragment()
+            }
         }
-        return ProductFragment()
+        return InfoFragment()
     }
 }

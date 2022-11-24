@@ -26,14 +26,16 @@
 
     <item android:title="@string/personal_data">
         <menu>
-            <item
-                android:id="@+id/data"
-                android:icon="@drawable/ic_personal_data"
-                android:title="@string/info" />
-            <item
-                android:id="@+id/share"
-                android:icon="@drawable/ic_share"
-                android:title="@string/share" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/data"
+                    android:icon="@drawable/ic_personal_data"
+                    android:title="@string/info" />
+                <item
+                    android:id="@+id/share"
+                    android:icon="@drawable/ic_share"
+                    android:title="@string/share" />
+            </group>
         </menu>
     </item>
 </menu>

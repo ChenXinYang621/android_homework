@@ -21,5 +21,8 @@
     <string name="title">this is a title</string>
     <string name="content">this is a content</string>
     <string name="鸡爪">十分的好吃</string>
+    <string name="烤猪排">干净又卫生</string>
     <string name="冰红茶">康师傅冰红茶</string>
+    <string name="汉堡">少吃为好</string>
+    <string name="提拉米苏">一种带咖啡酒味儿的意大利甜点</string>
 </resources>

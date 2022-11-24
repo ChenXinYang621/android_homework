@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orderplatform.R
-import com.example.orderplatform.adapter.DinnerAdapter
+import com.example.orderplatform.adapter.ProductAdapter
 import com.example.orderplatform.entity.Product
 import com.example.orderplatform.utils.BaseParcelable
 
@@ -51,7 +51,7 @@ class ProductFragment() : Fragment() {
 
         val mRecyclerView: RecyclerView = mView?.findViewById(R.id.recyclerview)!!
 
-        val mAdapter = context?.let { DinnerAdapter(it, mTitle, mPrice, mDescription, mPicture) }
+        val mAdapter = context?.let { ProductAdapter(it, mTitle, mPrice, mDescription, mPicture) }
         mRecyclerView.adapter = mAdapter
         mRecyclerView.layoutManager =
             LinearLayoutManager(context)
