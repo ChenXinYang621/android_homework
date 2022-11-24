@@ -36,9 +36,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val mNavigationView: NavigationView = findViewById(R.id.nav_view)
         mNavigationView.setNavigationItemSelectedListener(this)
 
-        val pagerAdapter = PagerAdapter(supportFragmentManager, lifecycle, 6)
+        val pagerAdapter = PagerAdapter(
+            supportFragmentManager,
+            lifecycle,
+            6,
+            this
+        )
         mViewPager = findViewById(R.id.pager)
-        mViewPager?.adapter = pagerAdapter
+        mViewPager!!.adapter = pagerAdapter
 
         mNavigationView.setCheckedItem(R.id.dinner)
         setSupportActionBar(findViewById(R.id.toolbar))
