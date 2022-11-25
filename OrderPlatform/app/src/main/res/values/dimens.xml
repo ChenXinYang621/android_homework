@@ -2,4 +2,5 @@
 <resources>
     <dimen name="header_height">200dp</dimen>
     <dimen name="dp_20">20dp</dimen>
+    <dimen name="product_normal">300dp</dimen>
 </resources>

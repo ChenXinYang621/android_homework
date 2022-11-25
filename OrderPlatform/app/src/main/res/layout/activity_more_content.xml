@@ -30,6 +30,9 @@
 
             <ImageView
                 android:id="@+id/more_picture"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:maxHeight="@dimen/product_normal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/main_photo" />
