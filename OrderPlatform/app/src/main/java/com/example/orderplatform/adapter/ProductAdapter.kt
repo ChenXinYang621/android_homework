@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.orderplatform.MoreContent
+import com.example.orderplatform.view.MoreContent
 import com.example.orderplatform.R
 
 class ProductAdapter(

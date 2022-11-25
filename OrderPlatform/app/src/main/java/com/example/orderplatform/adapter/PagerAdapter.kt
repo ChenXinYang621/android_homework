@@ -19,9 +19,9 @@ class PagerAdapter(
     context: Context
 ) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
-    private val mHelper: MDataBaseHelper = MDataBaseHelper.getInstance(context)
+    private val mHelper: MDataBaseHelper = MDataBaseHelper(context)
 
-    private val productDao: ProductDao = mHelper.let { ProductDao.getInstance() }
+    private val productDao: ProductDao = ProductDao(mHelper)
 
     override fun getItemCount(): Int {
         return itemsCount

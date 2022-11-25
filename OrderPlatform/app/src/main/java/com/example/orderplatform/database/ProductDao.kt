@@ -1,33 +1,34 @@
 package com.example.orderplatform.database
 
 import android.content.ContentValues
+import android.util.Log
 import com.example.orderplatform.entity.Product
 
 // 对 Product 表进行数据库操作
-class ProductDao private constructor() {
+class ProductDao(val mHelper: MDataBaseHelper) {
 
     // 单例模式进行初始化
-    companion object {
-        @Volatile
-        private var instance: ProductDao? = null
-
-        fun getInstance(): ProductDao {
-            val i = instance
-            if (i != null) {
-                return i
-            }
-            return synchronized(this) {
-                val i2 = instance
-                if (i2 != null) {
-                    i2
-                } else {
-                    val created = ProductDao()
-                    instance = created
-                    created
-                }
-            }
-        }
-    }
+//    companion object {
+//        @Volatile
+//        private var instance: ProductDao? = null
+//
+//        fun getInstance(): ProductDao {
+//            val i = instance
+//            if (i != null) {
+//                return i
+//            }
+//            return synchronized(this) {
+//                val i2 = instance
+//                if (i2 != null) {
+//                    i2
+//                } else {
+//                    val created = ProductDao()
+//                    instance = created
+//                    created
+//                }
+//            }
+//        }
+//    }
 
     fun insert(product: Product) {
         val values = ContentValues()
@@ -39,12 +40,15 @@ class ProductDao private constructor() {
         values.put("num", product.num)
         // nullColumnHack 防止插入时出现 empty body 的情况。可以通过指定对应列插入 null
         // 因为 values 已经不为空，所以不需要指定，设定为 null 即可
-        MDataBaseHelper.mWDB!!.insert(MDataBaseHelper.PRODUCT_TABLE, null, values)
+        val db = mHelper.writableDatabase
+        db.insert(MDataBaseHelper.PRODUCT_TABLE, null, values)
+        db.close()
     }
 
     fun findAll(): List<Product> {
         val ret = mutableListOf<Product>()
-        val cursor = MDataBaseHelper.mRDB!!.query(
+        val db = mHelper.readableDatabase
+        val cursor = db.query(
             MDataBaseHelper.PRODUCT_TABLE,
             null,
             null,
@@ -78,12 +82,14 @@ class ProductDao private constructor() {
             )
             ret.add(0, product)
         }
+        db.close()
         return ret
     }
 
     fun findProductByCatalogue(kind: Int): List<Product> {
         val ret = mutableListOf<Product>()
-        val cursor = MDataBaseHelper.mRDB!!.query(
+        val db = mHelper.readableDatabase
+        val cursor = db.query(
             MDataBaseHelper.PRODUCT_TABLE,
             null,
             "kind=?",
@@ -105,15 +111,91 @@ class ProductDao private constructor() {
             )
             ret.add(0, product)
         }
+        db.close()
         return ret
     }
 
+    fun findProductOverZero(num: Int = 0): List<Product> {
+        val ret = mutableListOf<Product>()
+        val db = mHelper.readableDatabase
+        val cursor = db.query(
+            MDataBaseHelper.PRODUCT_TABLE,
+            null,
+            "num>?",
+            arrayOf(num.toString()),
+            null,
+            null,
+            null,
+            null
+        )
+        while (cursor.moveToNext()) {
+            val product = Product(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getInt(2),
+                cursor.getInt(3),
+                cursor.getInt(4),
+                cursor.getInt(5),
+                cursor.getInt(6)
+            )
+            ret.add(0, product)
+        }
+        db.close()
+        return ret
+    }
+
+    fun findProductByName(name: String): Product? {
+        var product: Product? = null
+        val db = mHelper.readableDatabase
+        val cursor = db.query(
+            MDataBaseHelper.PRODUCT_TABLE,
+            null,
+            "name=?",
+            arrayOf(name),
+            null,
+            null,
+            null,
+            null
+        )
+        if (cursor.moveToNext()) {
+            product = Product(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getInt(2),
+                cursor.getInt(3),
+                cursor.getInt(4),
+                cursor.getInt(5),
+                cursor.getInt(6)
+            )
+        }
+        Log.d("database_test", product.toString())
+        db.close()
+        return product
+    }
+
     fun deleteAll(): Int {
-        return MDataBaseHelper.mWDB!!.delete(
+        val db = mHelper.writableDatabase
+        val value = db.delete(
             MDataBaseHelper.PRODUCT_TABLE,
             null,
             null
         )
+        db.close()
+        return value
+    }
+
+    fun updateNum(name: String, num: Int): Int {
+        val values = ContentValues()
+        val db = mHelper.writableDatabase
+        values.put("num", num)
+        val value = db.update(
+            MDataBaseHelper.PRODUCT_TABLE,
+            values,
+            "name=?",
+            arrayOf(name)
+        )
+        db.close()
+        return value
     }
 
 }

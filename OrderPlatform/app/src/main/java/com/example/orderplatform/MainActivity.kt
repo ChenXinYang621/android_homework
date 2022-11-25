@@ -1,5 +1,6 @@
 package com.example.orderplatform
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,7 @@ import com.example.orderplatform.database.MDataBaseHelper
 import com.example.orderplatform.database.ProductDao
 import com.example.orderplatform.entity.Product
 import com.example.orderplatform.utils.ScaleInTransformer
+import com.example.orderplatform.view.ShopCart
 import com.google.android.material.navigation.NavigationView
 import kotlin.math.log
 
@@ -35,7 +37,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer = findViewById(R.id.drawer_layout)
 
         // 创建数据库连接
-        mHelper = MDataBaseHelper.getInstance(this)
+        mHelper = MDataBaseHelper(this)
+        productDao = ProductDao(mHelper!!)
 
         val mNavigationView: NavigationView = findViewById(R.id.nav_view)
         mNavigationView.setNavigationItemSelectedListener(this)
@@ -62,20 +65,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         mNavigationView.setCheckedItem(R.id.dinner)
         setSupportActionBar(findViewById(R.id.toolbar))
-
-        productDao = mHelper?.let { ProductDao.getInstance() }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        mHelper!!.openWriteLink()
-        mHelper!!.openReadLink()
-        initData()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mHelper!!.closeLink()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -88,6 +77,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.action_setting -> {
                 drawer?.openDrawer(GravityCompat.START)
+            }
+            R.id.action_shop -> {
+                val intent = Intent(this, ShopCart::class.java)
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -126,63 +119,63 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun initData() {
-        val value = productDao!!.deleteAll()
-        Log.d("deleteName", "delete $value data")
-        productDao!!.insert(
-            product = Product(
-                1,
-                "鸡爪",
-                0,
-                10,
-                R.string.鸡爪,
-                R.drawable.dinner_pic1,
-                0
+        if (productDao!!.findAll().isEmpty()) {
+            productDao!!.insert(
+                product = Product(
+                    1,
+                    "鸡爪",
+                    0,
+                    10,
+                    R.string.鸡爪,
+                    R.drawable.dinner_pic1,
+                    0
+                )
             )
-        )
-        productDao!!.insert(
-            product = Product(
-                2,
-                "烤猪排",
-                0,
-                20,
-                R.string.烤猪排,
-                R.drawable.dinner_pic2,
-                0
+            productDao!!.insert(
+                product = Product(
+                    2,
+                    "烤猪排",
+                    0,
+                    20,
+                    R.string.烤猪排,
+                    R.drawable.dinner_pic2,
+                    0
+                )
             )
-        )
-        productDao!!.insert(
-            product = Product(
-                3,
-                "冰红茶",
-                1,
-                5,
-                R.string.冰红茶,
-                R.drawable.drink_pic1,
-                0
+            productDao!!.insert(
+                product = Product(
+                    3,
+                    "冰红茶",
+                    1,
+                    5,
+                    R.string.冰红茶,
+                    R.drawable.drink_pic1,
+                    0
+                )
             )
-        )
-        productDao!!.insert(
-            product = Product(
-                4,
-                "汉堡",
-                2,
-                7,
-                R.string.汉堡,
-                R.drawable.fastfood_pic1,
-                0
+            productDao!!.insert(
+                product = Product(
+                    4,
+                    "汉堡",
+                    2,
+                    7,
+                    R.string.汉堡,
+                    R.drawable.fastfood_pic1,
+                    0
+                )
             )
-        )
-        productDao!!.insert(
-            product = Product(
-                5,
-                "提拉米苏",
-                3,
-                15,
-                R.string.提拉米苏,
-                R.drawable.dessert_pic1,
-                0
+            productDao!!.insert(
+                product = Product(
+                    5,
+                    "提拉米苏",
+                    3,
+                    15,
+                    R.string.提拉米苏,
+                    R.drawable.dessert_pic1,
+                    0
+                )
             )
-        )
+        }
         val productList = productDao!!.findProductByCatalogue(1)
         for (product in productList) {
             Log.d("test_show", product.name)

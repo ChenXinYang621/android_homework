@@ -14,7 +14,7 @@ import com.example.orderplatform.entity.Product
 import com.example.orderplatform.utils.BaseParcelable
 
 class ProductFragment() : Fragment() {
-    var mView: View? = null
+    private var mView: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

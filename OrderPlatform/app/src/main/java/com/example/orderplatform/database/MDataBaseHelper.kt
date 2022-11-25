@@ -4,7 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class MDataBaseHelper private constructor(context: Context) :
+class MDataBaseHelper(context: Context) :
     SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
     // 单例模式进行初始化
     // 针对内存泄露问题 https://juejin.cn/post/6987258309648597005
@@ -15,33 +15,11 @@ class MDataBaseHelper private constructor(context: Context) :
 
         const val DB_VERSION = 1
 
-        var mWDB: SQLiteDatabase? = null
+//        var mWDB: SQLiteDatabase? = null
+//
+//        var mRDB: SQLiteDatabase? = null
 
-        var mRDB: SQLiteDatabase? = null
-
-        @Volatile
-        private var instance: MDataBaseHelper? = null
-
-        fun getInstance(context: Context): MDataBaseHelper {
-            val i = instance
-            if (i != null) {
-                return i
-            }
-            return synchronized(this) {
-                val i2 = instance
-                if (i2 != null) {
-                    i2
-                } else {
-                    val created = MDataBaseHelper(context.applicationContext)
-                    instance = created
-                    created
-                }
-            }
-        }
-    }
-
-    override fun onCreate(db: SQLiteDatabase?) {
-        val create =
+        const val create =
             "CREATE TABLE IF NOT EXISTS " + PRODUCT_TABLE +
                     "(id integer NOT NULL PRIMARY KEY, " +
                     "name varchar, " +
@@ -50,6 +28,29 @@ class MDataBaseHelper private constructor(context: Context) :
                     "word integer, " +
                     "picture integer, " +
                     "num INTEGER)"
+
+//        @Volatile
+//        private var instance: MDataBaseHelper? = null
+//
+//        fun getInstance(context: Context): MDataBaseHelper {
+//            val i = instance
+//            if (i != null) {
+//                return i
+//            }
+//            return synchronized(this) {
+//                val i2 = instance
+//                if (i2 != null) {
+//                    i2
+//                } else {
+//                    val created = MDataBaseHelper(context.applicationContext)
+//                    instance = created
+//                    created
+//                }
+//            }
+//        }
+    }
+
+    override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(create)
     }
 
@@ -57,32 +58,32 @@ class MDataBaseHelper private constructor(context: Context) :
 
     }
 
-    // 打开读取链接
-    fun openReadLink(): SQLiteDatabase {
-        if (mRDB == null || !mRDB!!.isOpen) {
-            mRDB = instance!!.readableDatabase
-        }
-        return mRDB!!
-    }
-
-    // 打开写入链接
-    fun openWriteLink(): SQLiteDatabase {
-        if (mWDB == null || !mWDB!!.isOpen) {
-            mWDB = instance!!.writableDatabase
-        }
-        return mWDB!!
-    }
-
-    // 关闭读写链接
-    fun closeLink() {
-        if (mRDB != null && mRDB!!.isOpen) {
-            mRDB!!.close()
-            mRDB = null
-        }
-
-        if (mWDB != null && mWDB!!.isOpen) {
-            mWDB!!.close()
-            mWDB = null
-        }
-    }
+//    // 打开读取链接
+//    fun openReadLink(): SQLiteDatabase {
+//        if (mRDB == null || !mRDB!!.isOpen) {
+//            mRDB = instance!!.readableDatabase
+//        }
+//        return mRDB!!
+//    }
+//
+//    // 打开写入链接
+//    fun openWriteLink(): SQLiteDatabase {
+//        if (mWDB == null || !mWDB!!.isOpen) {
+//            mWDB = instance!!.writableDatabase
+//        }
+//        return mWDB!!
+//    }
+//
+//    // 关闭读写链接
+//    fun closeLink() {
+//        if (mRDB != null && mRDB!!.isOpen) {
+//            mRDB!!.close()
+//            mRDB = null
+//        }
+//
+//        if (mWDB != null && mWDB!!.isOpen) {
+//            mWDB!!.close()
+//            mWDB = null
+//        }
+//    }
 }

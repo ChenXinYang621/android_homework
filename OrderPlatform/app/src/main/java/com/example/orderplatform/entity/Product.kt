@@ -7,6 +7,9 @@ class Product(
     val price: Int,
     val word: Int,
     val picture: Int,
-    val num: Int
+    var num: Int
 ) {
+    override fun toString(): String {
+        return "Product(id=$id, name='$name', kind=$kind, price=$price, word=$word, picture=$picture, num=$num)"
+    }
 }
