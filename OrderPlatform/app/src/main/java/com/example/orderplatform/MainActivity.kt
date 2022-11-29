@@ -3,12 +3,10 @@ package com.example.orderplatform
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
@@ -19,7 +17,6 @@ import com.example.orderplatform.entity.Product
 import com.example.orderplatform.utils.ScaleInTransformer
 import com.example.orderplatform.view.ShopCart
 import com.google.android.material.navigation.NavigationView
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private var drawer: DrawerLayout? = null
@@ -65,10 +62,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         mNavigationView.setCheckedItem(R.id.dinner)
         setSupportActionBar(findViewById(R.id.toolbar))
+        initData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.main_app_bar, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -145,6 +143,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             productDao!!.insert(
                 product = Product(
                     3,
+                    "小龙虾",
+                    0,
+                    30,
+                    R.string.小龙虾,
+                    R.drawable.dinner_pic3,
+                    0
+                )
+            )
+            productDao!!.insert(
+                product = Product(
+                    4,
                     "冰红茶",
                     1,
                     5,
@@ -155,7 +164,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             )
             productDao!!.insert(
                 product = Product(
-                    4,
+                    5,
                     "汉堡",
                     2,
                     7,
@@ -166,7 +175,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             )
             productDao!!.insert(
                 product = Product(
-                    5,
+                    6,
                     "提拉米苏",
                     3,
                     15,
@@ -175,10 +184,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     0
                 )
             )
-        }
-        val productList = productDao!!.findProductByCatalogue(1)
-        for (product in productList) {
-            Log.d("test_show", product.name)
         }
     }
 }

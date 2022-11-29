@@ -19,8 +19,6 @@ class MoreContent : AppCompatActivity(), OnClickListener {
 
     private var productDao: ProductDao? = null
 
-    private var bundle: Bundle? = null
-
     private var mTitle: String? = null
 
     private var product: Product? = null
@@ -29,32 +27,27 @@ class MoreContent : AppCompatActivity(), OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_more_content)
 
-        bundle = intent.extras
+        val bundle = intent.extras
         val title: TextView = findViewById(R.id.more_title)
         val description: TextView = findViewById(R.id.more_description)
         val picture: ImageView = findViewById(R.id.more_picture)
 
         mTitle = bundle!!.getString("title")
         title.text = mTitle
-        description.text = getString(bundle!!.getInt("description"))
-        picture.setImageResource(bundle!!.getInt("picture"))
+        description.text = getString(bundle.getInt("description"))
+        picture.setImageResource(bundle.getInt("picture"))
 
         mHelper = MDataBaseHelper(this)
         productDao = ProductDao(mHelper!!)
 
+        product = mTitle?.let { productDao!!.findProductByName(it) }
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener(this)
-        Log.d("show_test", "the title is ${bundle!!.getString("title")}")
-        product = bundle!!.getString("title")
-            ?.let { productDao!!.findProductByName(it) }
-
-        Log.d("test_review", product.toString())
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.fab -> {
                 product!!.num++
-                Log.d("test_show", product.toString())
                 productDao!!.updateNum(product!!.name, product!!.num)
                 Toast.makeText(
                     applicationContext,

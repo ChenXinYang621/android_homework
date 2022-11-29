@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/shop_cart_delete"
+        android:orderInCategory="10"
+        android:title="@string/shop_cart_delete" />
+
+    <item
+        android:id="@+id/shop_cart_edit"
+        android:orderInCategory="20"
+        android:title="@string/shop_cart_edit" />
+</menu>

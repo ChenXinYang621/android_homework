@@ -5,30 +5,7 @@ import android.util.Log
 import com.example.orderplatform.entity.Product
 
 // 对 Product 表进行数据库操作
-class ProductDao(val mHelper: MDataBaseHelper) {
-
-    // 单例模式进行初始化
-//    companion object {
-//        @Volatile
-//        private var instance: ProductDao? = null
-//
-//        fun getInstance(): ProductDao {
-//            val i = instance
-//            if (i != null) {
-//                return i
-//            }
-//            return synchronized(this) {
-//                val i2 = instance
-//                if (i2 != null) {
-//                    i2
-//                } else {
-//                    val created = ProductDao()
-//                    instance = created
-//                    created
-//                }
-//            }
-//        }
-//    }
+class ProductDao(private val mHelper: MDataBaseHelper) {
 
     fun insert(product: Product) {
         val values = ContentValues()
@@ -82,6 +59,7 @@ class ProductDao(val mHelper: MDataBaseHelper) {
             )
             ret.add(0, product)
         }
+        cursor.close()
         db.close()
         return ret
     }
@@ -111,11 +89,13 @@ class ProductDao(val mHelper: MDataBaseHelper) {
             )
             ret.add(0, product)
         }
+        cursor.close()
         db.close()
         return ret
     }
 
-    fun findProductOverZero(num: Int = 0): List<Product> {
+    // 找出大于某个值的数据，默认值为 0
+    fun findProductOverNum(num: Int = 0): List<Product> {
         val ret = mutableListOf<Product>()
         val db = mHelper.readableDatabase
         val cursor = db.query(
@@ -140,6 +120,7 @@ class ProductDao(val mHelper: MDataBaseHelper) {
             )
             ret.add(0, product)
         }
+        cursor.close()
         db.close()
         return ret
     }
@@ -168,7 +149,7 @@ class ProductDao(val mHelper: MDataBaseHelper) {
                 cursor.getInt(6)
             )
         }
-        Log.d("database_test", product.toString())
+        cursor.close()
         db.close()
         return product
     }

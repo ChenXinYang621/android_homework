@@ -18,14 +18,12 @@ class ProductFragment() : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("show_test", "create complete")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("show_test", "open the view")
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_product, container, false)
         initRecyclerView()
@@ -46,7 +44,6 @@ class ProductFragment() : Fragment() {
             mPrice.add(0, product.price)
             mDescription.add(0, product.word)
             mPicture.add(0, product.picture)
-            Log.d("show_test", "hava the fragment ${product.name}")
         }
 
         val mRecyclerView: RecyclerView = mView?.findViewById(R.id.recyclerview)!!

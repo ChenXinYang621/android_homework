@@ -20,7 +20,7 @@
             android:layout_height="wrap_content" />
 
         <include
-            layout="@layout/content_main"
+            layout="@layout/fragment_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -33,7 +33,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/header_main"
-        app:menu="@menu/activity_main_drawer" />
+        app:menu="@menu/drawer" />
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

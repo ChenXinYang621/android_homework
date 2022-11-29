@@ -49,9 +49,10 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:contentDescription="@string/shop_cart"
-        android:src="@drawable/ic_shop_cart"
+        android:src="@drawable/ic_add_shop_cart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

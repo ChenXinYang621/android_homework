@@ -6,32 +6,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
+import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.orderplatform.view.MoreContent
 import com.example.orderplatform.R
+import com.example.orderplatform.view.MoreContent
 
-class ProductAdapter(
+class ShopCartAdapter(
     private val context: Context,
     private val mTitle: List<String>,
-    private val mPrice: List<Int>,
     private val mDescription: List<Int>,
-    private val mPicture: List<Int>
-) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+    private val mPicture: List<Int>,
+    private val mNum: List<Int>
+) : RecyclerView.Adapter<ShopCartAdapter.ShopCartViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
 
-    // 申明为 inner 的内部类可以访问外部变量
-    inner class ProductViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView), OnClickListener {
+    var mPosition = -1
 
-        val mTitleView: TextView = itemView.findViewById(R.id.product_title)
-        val mPriceView: TextView = itemView.findViewById(R.id.product_price)
-        val mImageView: ImageView = itemView.findViewById(R.id.product_image)
+    inner class ShopCartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        OnClickListener, OnLongClickListener {
+
+        val mTitleView: TextView = itemView.findViewById(R.id.shop_cart_item)
 
         init {
             mTitleView.setOnClickListener(this)
+            mTitleView.setOnLongClickListener(this)
         }
 
         override fun onClick(v: View?) {
@@ -45,17 +46,24 @@ class ProductAdapter(
             context.startActivity(intent)
         }
 
+        override fun onLongClick(v: View?): Boolean {
+            mPosition = adapterPosition
+            return false
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val mItemView = mInflater.inflate(R.layout.product_item, parent, false)
-        return ProductViewHolder(mItemView)
+    override fun onCreateViewHolder(
+        parent: ViewGroup, viewType: Int
+    ): ShopCartViewHolder {
+        val mItemView = mInflater.inflate(R.layout.shop_cart_item, parent, false)
+        return ShopCartViewHolder(mItemView)
     }
 
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.mTitleView.text = mTitle[position]
-        holder.mPriceView.text = mPrice[position].toString()
-        holder.mImageView.setImageResource(mPicture[position])
+    // 使用规范的 placeholder 格式设置 TextView
+    override fun onBindViewHolder(holder: ShopCartViewHolder, position: Int) {
+        holder.mTitleView.text =
+            context.getString(R.string.shop_cart_item, mTitle[position], mNum[position])
+        // 设置绑定 LongClickListener
     }
 
     override fun getItemCount(): Int {
