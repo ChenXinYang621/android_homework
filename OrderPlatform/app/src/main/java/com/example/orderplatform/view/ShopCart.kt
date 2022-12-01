@@ -46,7 +46,7 @@ class ShopCart : AppCompatActivity(), OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.shop_cart_fab -> {
-                val intent = Intent(this, Order::class.java)
+                val intent = Intent(this, OrderActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -126,10 +126,10 @@ class ShopCart : AppCompatActivity(), OnClickListener {
         productDao = ProductDao(mHelper!!)
         val productList = productDao!!.findProductOverNum(0)
         for (product in productList) {
-            mTitle.add(0, product.name)
-            mDescription.add(0, product.word)
-            mPicture.add(0, product.picture)
-            mNum.add(0, product.num)
+            mTitle.add(product.name)
+            mDescription.add(product.word)
+            mPicture.add(product.picture)
+            mNum.add(product.num)
         }
 
         val mRecyclerView: RecyclerView = findViewById(R.id.shop_cart_view)

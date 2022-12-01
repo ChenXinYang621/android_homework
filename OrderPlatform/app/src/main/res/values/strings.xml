@@ -45,4 +45,5 @@
     <string name="tools_need">是否需要餐具</string>
     <string name="touch_need">是否无接触配送</string>
     <string name="submit">提交</string>
+    <string name="order">order</string>
 </resources>

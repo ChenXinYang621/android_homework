@@ -1,7 +1,6 @@
 package com.example.orderplatform.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,16 +8,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orderplatform.R
-import com.example.orderplatform.adapter.ProductAdapter
-import com.example.orderplatform.entity.Product
+import com.example.orderplatform.adapter.OrderAdapter
+import com.example.orderplatform.database.MDataBaseHelper
+import com.example.orderplatform.database.OrderDao
+import com.example.orderplatform.database.ProductDao
+import com.example.orderplatform.entity.Order
 import com.example.orderplatform.utils.BaseParcelable
 
-class ProductFragment() : Fragment() {
+class OrderFragment : Fragment() {
 
     private var mView: View? = null
 
+    private var mHelper: MDataBaseHelper? = null
+
+    private var orderDao: OrderDao? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        mHelper = context?.let { MDataBaseHelper(it) }
+        orderDao = OrderDao(mHelper!!)
     }
 
     override fun onCreateView(
@@ -31,23 +40,19 @@ class ProductFragment() : Fragment() {
     }
 
     private fun initRecyclerView() {
-        val any = arguments?.getParcelable<BaseParcelable>("product")?.value
-        val list = any as List<Product>
-
+        val mId = mutableListOf<Int>()
         val mTitle = mutableListOf<String>()
-        val mPrice = mutableListOf<Int>()
-        val mDescription = mutableListOf<Int>()
-        val mPicture = mutableListOf<Int>()
+        val mState = mutableListOf<Int>()
 
-        for (product in list) {
-            mTitle.add(product.name)
-            mPrice.add(product.price)
-            mDescription.add(product.word)
-            mPicture.add(product.picture)
+        val orderList = orderDao!!.findNotPay(0)
+        for (order in orderList) {
+            order.id?.let { mId.add(it) }
+            mTitle.add(order.name)
+            mState.add(order.pay)
         }
 
         val mRecyclerView: RecyclerView = mView?.findViewById(R.id.recyclerview)!!
-        val mAdapter = context?.let { ProductAdapter(it, mTitle, mPrice, mDescription, mPicture) }
+        val mAdapter = context?.let { OrderAdapter(it, mId, mTitle, mState) }
         mRecyclerView.adapter = mAdapter
         mRecyclerView.layoutManager = LinearLayoutManager(context)
     }

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.Order">
+    android:fitsSystemWindows="true"
+    tools:context=".view.OrderActivity">
 
 
     <TextView
         android:id="@+id/name_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="@string/姓名"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -27,7 +27,7 @@
         android:ems="10"
         android:hint="@string/填写姓名"
         android:inputType="textPersonName"
-        android:minHeight="48dp"
+        android:minHeight="24dp"
         android:text="@string/name"
         app:layout_constraintBaseline_toBaselineOf="@+id/name_text_view"
         app:layout_constraintStart_toEndOf="@+id/name_text_view" />
@@ -36,8 +36,7 @@
         android:id="@+id/address_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:text="@string/地址"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +50,7 @@
         android:autofillHints=""
         android:ems="10"
         android:inputType="textPersonName"
-        android:minHeight="48dp"
+        android:minHeight="24dp"
         android:text="@string/address"
         app:layout_constraintBaseline_toBaselineOf="@+id/address_text_view"
         app:layout_constraintStart_toEndOf="@+id/address_text_view" />
@@ -60,8 +59,7 @@
         android:id="@+id/other_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:text="@string/备注"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +73,7 @@
         android:autofillHints=""
         android:ems="10"
         android:inputType="textPersonName"
-        android:minHeight="48dp"
+        android:minHeight="24dp"
         android:text="@string/other"
         app:layout_constraintBaseline_toBaselineOf="@+id/other_text_view"
         app:layout_constraintStart_toEndOf="@+id/other_text_view" />
@@ -84,7 +82,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="12dp"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_other">
@@ -171,17 +169,21 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/tool"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/dp_20"
             android:text="@string/tools_need"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/touch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/touch_need"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </LinearLayout>
 

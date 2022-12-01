@@ -32,6 +32,10 @@
                     android:icon="@drawable/ic_personal_data"
                     android:title="@string/info" />
                 <item
+                    android:id="@+id/history_order"
+                    android:icon="@drawable/ic_order"
+                    android:title="@string/order" />
+                <item
                     android:id="@+id/share"
                     android:icon="@drawable/ic_share"
                     android:title="@string/share" />

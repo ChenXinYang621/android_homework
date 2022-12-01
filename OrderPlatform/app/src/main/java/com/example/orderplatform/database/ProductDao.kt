@@ -57,7 +57,7 @@ class ProductDao(private val mHelper: MDataBaseHelper) {
                 cursor.getInt(5),
                 cursor.getInt(6)
             )
-            ret.add(0, product)
+            ret.add(product)
         }
         cursor.close()
         db.close()
@@ -87,7 +87,7 @@ class ProductDao(private val mHelper: MDataBaseHelper) {
                 cursor.getInt(5),
                 cursor.getInt(6)
             )
-            ret.add(0, product)
+            ret.add(product)
         }
         cursor.close()
         db.close()
@@ -118,7 +118,7 @@ class ProductDao(private val mHelper: MDataBaseHelper) {
                 cursor.getInt(5),
                 cursor.getInt(6)
             )
-            ret.add(0, product)
+            ret.add(product)
         }
         cursor.close()
         db.close()
@@ -152,17 +152,6 @@ class ProductDao(private val mHelper: MDataBaseHelper) {
         cursor.close()
         db.close()
         return product
-    }
-
-    fun deleteAll(): Int {
-        val db = mHelper.writableDatabase
-        val value = db.delete(
-            MDataBaseHelper.PRODUCT_TABLE,
-            null,
-            null
-        )
-        db.close()
-        return value
     }
 
     fun updateNum(name: String, num: Int): Int {

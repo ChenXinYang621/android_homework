@@ -18,7 +18,9 @@ import com.example.orderplatform.utils.ScaleInTransformer
 import com.example.orderplatform.view.ShopCart
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(),
+    NavigationView.OnNavigationItemSelectedListener {
+
     private var drawer: DrawerLayout? = null
 
     private var mViewPager: ViewPager2? = null
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val pagerAdapter = PagerAdapter(
             supportFragmentManager,
             lifecycle,
-            5,
+            6,
             this
         )
         // ViewPager 在创建时调用 createFragment 创建所有对应 Fragment，默认支持滑动切换
@@ -109,6 +111,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.data -> {
                 mViewPager?.currentItem = 4
+                drawer?.closeDrawer(GravityCompat.START)
+                return true
+            }
+            R.id.history_order -> {
+                mViewPager?.currentItem = 5
                 drawer?.closeDrawer(GravityCompat.START)
                 return true
             }
