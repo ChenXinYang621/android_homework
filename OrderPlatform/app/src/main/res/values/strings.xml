@@ -29,4 +29,20 @@
     <string name="提拉米苏">一种带咖啡酒味儿的意大利甜点</string>
     <string name="shop_cart_delete">delete</string>
     <string name="shop_cart_edit">edit</string>
+    <string name="clear">clear</string>
+    <string name="add_order">add order</string>
+    <string name="姓名">姓名</string>
+    <string name="name">Name</string>
+    <string name="填写姓名">填写姓名</string>
+    <string name="地址">地址</string>
+    <string name="address">Address</string>
+    <string name="other">Other</string>
+    <string name="备注">备注</string>
+    <string name="支付方式">支付方式</string>
+    <string name="微信">微信</string>
+    <string name="支付宝">支付宝</string>
+    <string name="银行卡">银行卡</string>
+    <string name="tools_need">是否需要餐具</string>
+    <string name="touch_need">是否无接触配送</string>
+    <string name="submit">提交</string>
 </resources>

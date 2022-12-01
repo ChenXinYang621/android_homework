@@ -41,12 +41,12 @@ class MoreContent : AppCompatActivity(), OnClickListener {
         productDao = ProductDao(mHelper!!)
 
         product = mTitle?.let { productDao!!.findProductByName(it) }
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener(this)
+        findViewById<FloatingActionButton>(R.id.more_fab).setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            R.id.fab -> {
+            R.id.more_fab -> {
                 product!!.num++
                 productDao!!.updateNum(product!!.name, product!!.num)
                 Toast.makeText(
