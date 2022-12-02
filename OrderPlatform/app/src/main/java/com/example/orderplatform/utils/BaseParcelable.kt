@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 // 通过自定义 Parcelable 解决 Java kotlin 类型不匹配的问题
+// 但是后来发现需要这么麻烦，所以就重构了代码逻辑
 class BaseParcelable() : Parcelable {
     lateinit var value: Any
 

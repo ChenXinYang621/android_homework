@@ -46,4 +46,7 @@
     <string name="touch_need">是否无接触配送</string>
     <string name="submit">提交</string>
     <string name="order">order</string>
+    <string name="feedback_word">请填写反馈意见：</string>
+    <string name="feedback_edit">填写意见</string>
+    <string name="feedback_comment">请对服务进行评价：</string>
 </resources>

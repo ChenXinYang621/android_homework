@@ -40,19 +40,10 @@ class OrderFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        val mId = mutableListOf<Int>()
-        val mTitle = mutableListOf<String>()
-        val mState = mutableListOf<Int>()
-
-        val orderList = orderDao!!.findNotPay(0)
-        for (order in orderList) {
-            order.id?.let { mId.add(it) }
-            mTitle.add(order.name)
-            mState.add(order.pay)
-        }
+        val orderList = orderDao!!.findAll()
 
         val mRecyclerView: RecyclerView = mView?.findViewById(R.id.recyclerview)!!
-        val mAdapter = context?.let { OrderAdapter(it, mId, mTitle, mState) }
+        val mAdapter = context?.let { OrderAdapter(it, orderList) }
         mRecyclerView.adapter = mAdapter
         mRecyclerView.layoutManager = LinearLayoutManager(context)
     }

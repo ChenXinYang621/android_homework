@@ -1,6 +1,8 @@
 package com.example.orderplatform.adapter
 
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +12,15 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orderplatform.R
+import com.example.orderplatform.entity.Order
+import com.example.orderplatform.view.Feedback
 
 class OrderAdapter(
     private val context: Context,
-    private val mId: List<Int>,
-    private val mTitle: List<String>,
-    private val mState: List<Int>
+//    private val mId: List<Int>,
+//    private val mTitle: List<String>,
+//    private val mState: List<Int>
+    private val orderList: List<Order>
 ) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -27,12 +32,21 @@ class OrderAdapter(
 
         init {
             mTitleView.setOnClickListener(this)
+            mButtonView.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
-            Log.d("test_new", "yes")
+            when (v!!.id) {
+                R.id.order_item_title, R.id.order_item_button -> {
+                    val position = layoutPosition
+                    val intent = Intent(context, Feedback::class.java)
+                    val bundle = Bundle()
+                    orderList[position].id?.let { bundle.putInt("id", it) }
+                    intent.putExtras(bundle)
+                    context.startActivity(intent)
+                }
+            }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
@@ -41,10 +55,22 @@ class OrderAdapter(
     }
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
-        holder.mTitleView.text = mTitle[position]
+        val order = orderList[position]
+        holder.mTitleView.text = order.name
+        when (order.pay) {
+            1 -> {
+                holder.mButtonView.isClickable = false
+                holder.mButtonView.text = "已付款"
+                holder.mButtonView.setBackgroundColor(context.getColor(R.color.grey))
+            }
+            0 -> {
+                holder.mButtonView.text = "未付款"
+                holder.mButtonView.setBackgroundColor(context.getColor(R.color.purple_500))
+            }
+        }
     }
 
     override fun getItemCount(): Int {
-        return mTitle.size
+        return orderList.size
     }
 }
