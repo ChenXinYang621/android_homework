@@ -21,8 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:navigationIcon="@drawable/ic_back"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="Check This" />
+            app:title="购物车" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

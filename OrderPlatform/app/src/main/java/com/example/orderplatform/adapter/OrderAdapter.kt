@@ -57,16 +57,13 @@ class OrderAdapter(
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val order = orderList[position]
         holder.mTitleView.text = order.name
-        when (order.pay) {
-            1 -> {
-                holder.mButtonView.isClickable = false
-                holder.mButtonView.text = "已付款"
-                holder.mButtonView.setBackgroundColor(context.getColor(R.color.grey))
-            }
-            0 -> {
-                holder.mButtonView.text = "未付款"
-                holder.mButtonView.setBackgroundColor(context.getColor(R.color.purple_500))
-            }
+        val button = holder.mButtonView
+        if (order.pay == 1) {
+            Log.d("支付成功", "支付成功")
+            button.isClickable = false
+            button.text = "已付款"
+            button.setBackgroundColor(context.getColor(R.color.grey))
+            button.setTextColor(context.getColor(R.color.black))
         }
     }
 

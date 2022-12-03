@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import androidx.appcompat.widget.Toolbar
 import com.example.orderplatform.MainActivity
 import com.example.orderplatform.R
 import com.example.orderplatform.database.MDataBaseHelper
@@ -54,6 +55,12 @@ class OrderActivity : AppCompatActivity(), OnClickListener {
         needTouch = findViewById(R.id.touch)
 
         findViewById<Button>(R.id.order_submit).setOnClickListener(this)
+
+        val toolbar: Toolbar = findViewById(R.id.order_toolbar)
+        setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener() {
+            finish()
+        }
     }
 
     override fun onClick(v: View?) {

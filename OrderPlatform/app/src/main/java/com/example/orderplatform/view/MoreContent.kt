@@ -1,13 +1,14 @@
 package com.example.orderplatform.view
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.example.orderplatform.R
 import com.example.orderplatform.database.MDataBaseHelper
 import com.example.orderplatform.database.ProductDao
@@ -42,6 +43,12 @@ class MoreContent : AppCompatActivity(), OnClickListener {
 
         product = mTitle?.let { productDao!!.findProductByName(it) }
         findViewById<FloatingActionButton>(R.id.more_fab).setOnClickListener(this)
+
+        val toolbar: Toolbar = findViewById(R.id.more_toolbar)
+        setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener() {
+            finish()
+        }
     }
 
     override fun onClick(v: View?) {

@@ -5,7 +5,7 @@
     <string name="drink">drink</string>
     <string name="desert">desert</string>
     <string name="fastfood">fastfood</string>
-    <string name="first_username">noname</string>
+    <string name="first_username">B20032025</string>
     <string name="initial_avatar">initial_avatar</string>
     <string name="initial_description">there is nothing here</string>
     <string name="settings">settings</string>
@@ -14,7 +14,6 @@
     <string name="info">info</string>
     <string name="share">share</string>
     <string name="catalogue">catalogue</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="test">test</string>
     <string name="main_photo">main_photo</string>
@@ -49,4 +48,6 @@
     <string name="feedback_word">请填写反馈意见：</string>
     <string name="feedback_edit">填写意见</string>
     <string name="feedback_comment">请对服务进行评价：</string>
+    <string name="rate">rate</string>
+    <string name="pay_not">未付款</string>
 </resources>

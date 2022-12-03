@@ -40,7 +40,7 @@ class MDataBaseHelper(context: Context) :
                     "touch integer, " +
                     "pay integer, " +
                     "feedback varchar, " +
-                    "star integer)"
+                    "star double)"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {

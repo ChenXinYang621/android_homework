@@ -44,7 +44,7 @@ class OrderDao(private val mHelper: MDataBaseHelper) {
                 cursor.getInt(7),
                 cursor.getInt(8),
                 cursor.getString(9),
-                cursor.getInt(10)
+                cursor.getDouble(10)
             )
             ret.add(0, order)
         }
@@ -78,7 +78,7 @@ class OrderDao(private val mHelper: MDataBaseHelper) {
                 cursor.getInt(7),
                 cursor.getInt(8),
                 cursor.getString(9),
-                cursor.getInt(10)
+                cursor.getDouble(10)
             )
             ret.add(0, order)
         }
@@ -112,7 +112,7 @@ class OrderDao(private val mHelper: MDataBaseHelper) {
                 cursor.getInt(7),
                 cursor.getInt(8),
                 cursor.getString(9),
-                cursor.getInt(10)
+                cursor.getDouble(10)
             )
         }
         cursor.close()
@@ -145,7 +145,7 @@ class OrderDao(private val mHelper: MDataBaseHelper) {
                 cursor.getInt(7),
                 cursor.getInt(8),
                 cursor.getString(9),
-                cursor.getInt(10)
+                cursor.getDouble(10)
             )
         }
         cursor.close()
@@ -153,10 +153,25 @@ class OrderDao(private val mHelper: MDataBaseHelper) {
         return order
     }
 
-    fun updatePay(id: Int, pay: Int): Int {
+    fun updatePayById(id: Int, pay: Int): Int {
         val values = ContentValues()
         val db = mHelper.writableDatabase
         values.put("pay", pay)
+        val value = db.update(
+            MDataBaseHelper.ORDER_TABLE,
+            values,
+            "id=?",
+            arrayOf(id.toString())
+        )
+        db.close()
+        return value
+    }
+
+    fun updateFeedBackById(id: Int, feedback: String, star: Double): Int {
+        val values = ContentValues()
+        val db = mHelper.writableDatabase
+        values.put("feedback", feedback)
+        values.put("star", star)
         val value = db.update(
             MDataBaseHelper.ORDER_TABLE,
             values,
