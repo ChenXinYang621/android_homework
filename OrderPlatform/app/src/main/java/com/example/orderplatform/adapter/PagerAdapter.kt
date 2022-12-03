@@ -27,14 +27,11 @@ class PagerAdapter(
     }
 
     override fun createFragment(position: Int): Fragment {
-        val mHelper = MDataBaseHelper(context)
         when (position) {
             0, 1, 2, 3 -> {
-                val productDao = ProductDao(mHelper)
                 val bundle = Bundle()
                 val productFragment = ProductFragment()
-                val productList = productDao.findProductByCatalogue(position)
-                bundle.putParcelable("product", BaseParcelable(productList))
+                bundle.putInt("kind", position)
                 productFragment.arguments = bundle
                 return productFragment
             }

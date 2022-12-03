@@ -1,24 +1,29 @@
 package com.example.orderplatform.fragment
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orderplatform.R
 import com.example.orderplatform.adapter.ProductAdapter
-import com.example.orderplatform.entity.Product
-import com.example.orderplatform.utils.BaseParcelable
+import com.example.orderplatform.database.MDataBaseHelper
+import com.example.orderplatform.database.ProductDao
 
 class ProductFragment() : Fragment() {
 
     private var mView: View? = null
 
+    private var mHelper: MDataBaseHelper? = null
+
+    private var productDao: ProductDao? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mHelper = context?.let { MDataBaseHelper(it) }
+        productDao = ProductDao(mHelper!!)
     }
 
     override fun onCreateView(
@@ -31,23 +36,11 @@ class ProductFragment() : Fragment() {
     }
 
     private fun initRecyclerView() {
-        val any = arguments?.getParcelable<BaseParcelable>("product")?.value
-        val list = any as List<Product>
-
-        val mTitle = mutableListOf<String>()
-        val mPrice = mutableListOf<Int>()
-        val mDescription = mutableListOf<Int>()
-        val mPicture = mutableListOf<Int>()
-
-        for (product in list) {
-            mTitle.add(product.name)
-            mPrice.add(product.price)
-            mDescription.add(product.word)
-            mPicture.add(product.picture)
-        }
+        val kind = arguments?.getInt("kind")
+        val productList = productDao!!.findProductByCatalogue(kind!!)
 
         val mRecyclerView: RecyclerView = mView?.findViewById(R.id.recyclerview)!!
-        val mAdapter = context?.let { ProductAdapter(it, mTitle, mPrice, mDescription, mPicture) }
+        val mAdapter = context?.let { ProductAdapter(it, productList) }
         mRecyclerView.adapter = mAdapter
         mRecyclerView.layoutManager = LinearLayoutManager(context)
     }

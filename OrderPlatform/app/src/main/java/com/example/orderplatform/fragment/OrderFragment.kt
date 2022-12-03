@@ -1,19 +1,16 @@
 package com.example.orderplatform.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orderplatform.R
 import com.example.orderplatform.adapter.OrderAdapter
 import com.example.orderplatform.database.MDataBaseHelper
 import com.example.orderplatform.database.OrderDao
-import com.example.orderplatform.database.ProductDao
-import com.example.orderplatform.entity.Order
-import com.example.orderplatform.utils.BaseParcelable
 
 class OrderFragment : Fragment() {
 

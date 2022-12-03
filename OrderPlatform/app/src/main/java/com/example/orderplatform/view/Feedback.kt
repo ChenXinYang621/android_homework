@@ -85,8 +85,10 @@ class Feedback : AppCompatActivity(), OnClickListener {
                 val id = order!!.id
                 val message = mComment!!.text.toString()
                 val star = mRatingBar!!.rating.toDouble()
-                Log.d("show", "id:${id} message:${message} and star:${star}")
                 orderDao!!.updateFeedBackById(id!!, message, star)
+                Toast.makeText(applicationContext, "评价成功", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
         }
     }

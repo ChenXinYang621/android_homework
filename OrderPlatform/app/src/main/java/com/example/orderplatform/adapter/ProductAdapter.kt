@@ -12,13 +12,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orderplatform.view.MoreContent
 import com.example.orderplatform.R
+import com.example.orderplatform.entity.Product
 
 class ProductAdapter(
     private val context: Context,
-    private val mTitle: List<String>,
-    private val mPrice: List<Int>,
-    private val mDescription: List<Int>,
-    private val mPicture: List<Int>
+    private val productList: List<Product>
 ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -38,9 +36,9 @@ class ProductAdapter(
             val position = layoutPosition
             val intent = Intent(context, MoreContent::class.java)
             val bundle = Bundle()
-            bundle.putString("title", mTitle[position])
-            bundle.putInt("description", mDescription[position])
-            bundle.putInt("picture", mPicture[position])
+            bundle.putString("title", productList[position].name)
+            bundle.putInt("description", productList[position].word)
+            bundle.putInt("picture", productList[position].picture)
             intent.putExtras(bundle)
             context.startActivity(intent)
         }
@@ -53,12 +51,12 @@ class ProductAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.mTitleView.text = mTitle[position]
-        holder.mPriceView.text = mPrice[position].toString()
-        holder.mImageView.setImageResource(mPicture[position])
+        holder.mTitleView.text = productList[position].name
+        holder.mPriceView.text = context.getString(R.string.product_price, productList[position].price)
+        holder.mImageView.setImageResource(productList[position].picture)
     }
 
     override fun getItemCount(): Int {
-        return mTitle.size
+        return productList.size
     }
 }

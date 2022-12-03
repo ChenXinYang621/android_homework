@@ -18,7 +18,7 @@ import com.example.orderplatform.database.MDataBaseHelper
 import com.example.orderplatform.database.OrderDao
 import com.example.orderplatform.database.ProductDao
 import com.example.orderplatform.entity.Order
-import com.example.orderplatform.fragment.TimePicker
+import com.example.orderplatform.utils.TimePicker
 
 class OrderActivity : AppCompatActivity(), OnClickListener {
     private var mHelper: MDataBaseHelper? = null
@@ -58,7 +58,7 @@ class OrderActivity : AppCompatActivity(), OnClickListener {
 
         val toolbar: Toolbar = findViewById(R.id.order_toolbar)
         setSupportActionBar(toolbar)
-        toolbar.setNavigationOnClickListener() {
+        toolbar.setNavigationOnClickListener {
             finish()
         }
     }

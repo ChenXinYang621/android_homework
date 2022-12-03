@@ -1,4 +1,4 @@
-package com.example.orderplatform.fragment
+package com.example.orderplatform.utils
 
 import android.app.Dialog
 import android.app.TimePickerDialog

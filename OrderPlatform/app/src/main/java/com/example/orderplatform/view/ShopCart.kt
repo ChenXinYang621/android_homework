@@ -41,7 +41,7 @@ class ShopCart : AppCompatActivity(), OnClickListener {
         setContentView(R.layout.activity_shop_cart)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        toolbar.setNavigationOnClickListener() {
+        toolbar.setNavigationOnClickListener {
             finish()
         }
 

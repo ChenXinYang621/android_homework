@@ -46,7 +46,7 @@ class MoreContent : AppCompatActivity(), OnClickListener {
 
         val toolbar: Toolbar = findViewById(R.id.more_toolbar)
         setSupportActionBar(toolbar)
-        toolbar.setNavigationOnClickListener() {
+        toolbar.setNavigationOnClickListener {
             finish()
         }
     }
