@@ -1,5 +1,6 @@
 package com.example.orderplatform.view
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -73,6 +74,7 @@ class Feedback : AppCompatActivity(), OnClickListener {
         val toolbar: Toolbar = findViewById(R.id.feedback_toolbar)
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
+            setResult(Activity.RESULT_OK)
             finish()
         }
 
@@ -84,7 +86,7 @@ class Feedback : AppCompatActivity(), OnClickListener {
                 val id = order!!.id
                 val message = mComment!!.text.toString()
                 val star = mRatingBar!!.rating.toDouble()
-                orderDao!!.updateFeedBackById(id!!, message, star)
+                orderDao!!.updateFeedBackById(id, message, star)
                 Toast.makeText(applicationContext, "评价成功", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)

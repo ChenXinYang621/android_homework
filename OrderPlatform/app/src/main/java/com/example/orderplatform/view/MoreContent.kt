@@ -1,5 +1,6 @@
 package com.example.orderplatform.view
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
@@ -46,6 +47,9 @@ class MoreContent : AppCompatActivity(), OnClickListener {
         val toolbar: Toolbar = findViewById(R.id.more_toolbar)
         setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener {
+            bundle.getInt("flag").let {
+                setResult(Activity.RESULT_OK)
+            }
             finish()
         }
     }

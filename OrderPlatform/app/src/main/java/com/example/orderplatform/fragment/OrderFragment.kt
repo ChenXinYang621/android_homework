@@ -1,9 +1,13 @@
 package com.example.orderplatform.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,11 +24,20 @@ class OrderFragment : Fragment() {
 
     private var orderDao: OrderDao? = null
 
+    private var register: ActivityResultLauncher<Intent>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         mHelper = context?.let { MDataBaseHelper(it) }
         orderDao = OrderDao(mHelper!!)
+
+        register = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            initRecyclerView()
+        }
+        savedInstanceState?.let {
+            initRecyclerView()
+        }
     }
 
     override fun onCreateView(
@@ -39,7 +52,7 @@ class OrderFragment : Fragment() {
     private fun initRecyclerView() {
         val orderList = orderDao!!.findAll()
         val mRecyclerView: RecyclerView = mView?.findViewById(R.id.recyclerview)!!
-        val mAdapter = context?.let { OrderAdapter(it, orderList) }
+        val mAdapter = OrderAdapter(requireContext(), orderList, register!!)
         mRecyclerView.adapter = mAdapter
         mRecyclerView.layoutManager = LinearLayoutManager(context)
     }

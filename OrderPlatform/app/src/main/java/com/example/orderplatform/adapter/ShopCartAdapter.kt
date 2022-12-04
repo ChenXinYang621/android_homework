@@ -9,6 +9,7 @@ import android.view.View.OnClickListener
 import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orderplatform.R
 import com.example.orderplatform.entity.Product
@@ -16,7 +17,8 @@ import com.example.orderplatform.view.MoreContent
 
 class ShopCartAdapter(
     private val context: Context,
-    private val productList: List<Product>
+    private val productList: List<Product>,
+    private val register: ActivityResultLauncher<Intent>
 ) : RecyclerView.Adapter<ShopCartAdapter.ShopCartViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -39,8 +41,9 @@ class ShopCartAdapter(
             bundle.putString("title", productList[position].name)
             bundle.putInt("description", productList[position].word)
             bundle.putInt("picture", productList[position].picture)
+            bundle.putInt("flag", 1)
             intent.putExtras(bundle)
-            context.startActivity(intent)
+            register.launch(intent)
         }
 
         override fun onLongClick(v: View?): Boolean {

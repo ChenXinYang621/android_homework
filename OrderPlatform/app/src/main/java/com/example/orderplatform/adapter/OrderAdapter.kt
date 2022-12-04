@@ -10,6 +10,7 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orderplatform.R
 import com.example.orderplatform.entity.Order
@@ -17,10 +18,8 @@ import com.example.orderplatform.view.Feedback
 
 class OrderAdapter(
     private val context: Context,
-//    private val mId: List<Int>,
-//    private val mTitle: List<String>,
-//    private val mState: List<Int>
-    private val orderList: List<Order>
+    private val orderList: List<Order>,
+    private val register: ActivityResultLauncher<Intent>
 ) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -37,13 +36,21 @@ class OrderAdapter(
 
         override fun onClick(v: View?) {
             when (v!!.id) {
-                R.id.order_item_title, R.id.order_item_button -> {
+                R.id.order_item_title -> {
                     val position = layoutPosition
                     val intent = Intent(context, Feedback::class.java)
                     val bundle = Bundle()
-                    orderList[position].id?.let { bundle.putInt("id", it) }
+                    orderList[position].id.let { bundle.putInt("id", it) }
                     intent.putExtras(bundle)
                     context.startActivity(intent)
+                }
+                R.id.order_item_button -> {
+                    val position = layoutPosition
+                    val intent = Intent(context, Feedback::class.java)
+                    val bundle = Bundle()
+                    orderList[position].id.let { bundle.putInt("id", it) }
+                    intent.putExtras(bundle)
+                    register.launch(intent)
                 }
             }
         }

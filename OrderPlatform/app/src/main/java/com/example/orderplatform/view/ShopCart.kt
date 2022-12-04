@@ -8,6 +8,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -30,6 +32,8 @@ class ShopCart : AppCompatActivity(), OnClickListener {
 
     private var productList: List<Product>? = null
 
+    private var register: ActivityResultLauncher<Intent>? = null
+
     private var selectId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,8 +44,15 @@ class ShopCart : AppCompatActivity(), OnClickListener {
         toolbar.setNavigationOnClickListener {
             finish()
         }
+
+        register = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            initData()
+        }
         initData()
         findViewById<FloatingActionButton>(R.id.shop_cart_fab).setOnClickListener(this)
+        savedInstanceState?.let {
+            initData()
+        }
     }
 
     override fun onClick(v: View?) {
@@ -136,7 +147,7 @@ class ShopCart : AppCompatActivity(), OnClickListener {
         productList = productDao!!.findProductOverNum(0)
         val mRecyclerView: RecyclerView = findViewById(R.id.shop_cart_view)
         registerForContextMenu(mRecyclerView)
-        mAdapter = ShopCartAdapter(this, productList!!)
+        mAdapter = ShopCartAdapter(this, productList!!, register!!)
         mRecyclerView.adapter = mAdapter
         mRecyclerView.layoutManager = LinearLayoutManager(this)
     }
