@@ -1,10 +1,11 @@
 package com.example.orderplatform
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -15,6 +16,7 @@ import com.example.orderplatform.database.MDataBaseHelper
 import com.example.orderplatform.database.ProductDao
 import com.example.orderplatform.entity.Product
 import com.example.orderplatform.utils.ScaleInTransformer
+import com.example.orderplatform.view.Search
 import com.example.orderplatform.view.ShopCart
 import com.google.android.material.navigation.NavigationView
 
@@ -63,7 +65,12 @@ class MainActivity : AppCompatActivity(),
         mViewPager!!.adapter = pagerAdapter
 
         mNavigationView.setCheckedItem(R.id.dinner)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        // 设置 navigation 必须在设置 SupportActionBar 之后
+        toolbar.setNavigationOnClickListener {
+            drawer?.openDrawer(GravityCompat.START)
+        }
         initData()
     }
 
@@ -78,6 +85,12 @@ class MainActivity : AppCompatActivity(),
             R.id.action_setting -> {
                 drawer?.openDrawer(GravityCompat.START)
             }
+
+            R.id.action_search -> {
+                val intent = Intent(this, Search::class.java)
+                startActivity(intent)
+            }
+
             R.id.action_shop -> {
                 val intent = Intent(this, ShopCart::class.java)
                 startActivity(intent)
@@ -94,26 +107,31 @@ class MainActivity : AppCompatActivity(),
                 drawer?.closeDrawer(GravityCompat.START)
                 return true
             }
+
             R.id.drink -> {
                 mViewPager?.currentItem = 1
                 drawer?.closeDrawer(GravityCompat.START)
                 return true
             }
+
             R.id.fast_food -> {
                 mViewPager?.currentItem = 2
                 drawer?.closeDrawer(GravityCompat.START)
                 return true
             }
+
             R.id.desert -> {
                 mViewPager?.currentItem = 3
                 drawer?.closeDrawer(GravityCompat.START)
                 return true
             }
+
             R.id.data -> {
                 mViewPager?.currentItem = 4
                 drawer?.closeDrawer(GravityCompat.START)
                 return true
             }
+
             R.id.history_order -> {
                 mViewPager?.currentItem = 5
                 drawer?.closeDrawer(GravityCompat.START)
@@ -127,66 +145,70 @@ class MainActivity : AppCompatActivity(),
         if (productDao!!.findAll().isEmpty()) {
             productDao!!.insert(
                 product = Product(
-                    1,
                     "鸡爪",
                     0,
                     10,
-                    R.string.鸡爪,
+                    R.string.dinner1_word,
                     R.drawable.dinner_pic1,
                     0
                 )
             )
             productDao!!.insert(
                 product = Product(
-                    2,
                     "烤猪排",
                     0,
                     20,
-                    R.string.烤猪排,
+                    R.string.dinner2_word,
                     R.drawable.dinner_pic2,
                     0
                 )
             )
             productDao!!.insert(
                 product = Product(
-                    3,
                     "小龙虾",
                     0,
                     30,
-                    R.string.小龙虾,
+                    R.string.dinner3_word,
                     R.drawable.dinner_pic3,
                     0
                 )
             )
             productDao!!.insert(
                 product = Product(
-                    4,
                     "冰红茶",
                     1,
                     5,
-                    R.string.冰红茶,
+                    R.string.drink1_word,
                     R.drawable.drink_pic1,
                     0
                 )
             )
             productDao!!.insert(
                 product = Product(
+                    "可口可乐",
+                    1,
                     5,
+                    R.string.drink2_word,
+                    R.drawable.drink_pic2,
+                    0
+                )
+            )
+            productDao!!.insert(
+                product = Product(
                     "汉堡",
                     2,
                     7,
-                    R.string.汉堡,
+                    R.string.fastfood1_word,
                     R.drawable.fastfood_pic1,
                     0
                 )
             )
             productDao!!.insert(
                 product = Product(
-                    6,
                     "提拉米苏",
                     3,
                     15,
-                    R.string.提拉米苏,
+                    R.string.desert1_word,
                     R.drawable.dessert_pic1,
                     0
                 )

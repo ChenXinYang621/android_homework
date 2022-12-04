@@ -14,6 +14,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
 import com.example.orderplatform.MainActivity
 import com.example.orderplatform.R
+import com.example.orderplatform.database.InfoDao
 import com.example.orderplatform.database.MDataBaseHelper
 import com.example.orderplatform.database.OrderDao
 import com.example.orderplatform.database.ProductDao
@@ -21,6 +22,7 @@ import com.example.orderplatform.entity.Order
 import com.example.orderplatform.utils.TimePicker
 
 class OrderActivity : AppCompatActivity(), OnClickListener {
+
     private var mHelper: MDataBaseHelper? = null
 
     private var productDao: ProductDao? = null
@@ -39,6 +41,8 @@ class OrderActivity : AppCompatActivity(), OnClickListener {
 
     private var needTouch: SwitchCompat? = null
 
+    private var infoDao: InfoDao? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order)
@@ -46,6 +50,7 @@ class OrderActivity : AppCompatActivity(), OnClickListener {
         mHelper = MDataBaseHelper(this)
         productDao = ProductDao(mHelper!!)
         orderDao = OrderDao(mHelper!!)
+        infoDao = InfoDao(mHelper!!)
 
         nameEditText = findViewById(R.id.edit_name)
         addressEditText = findViewById(R.id.edit_address)
@@ -53,6 +58,15 @@ class OrderActivity : AppCompatActivity(), OnClickListener {
         radioGroup = findViewById(R.id.order_radio_group)
         needTool = findViewById(R.id.tool)
         needTouch = findViewById(R.id.touch)
+
+        val infoList = infoDao!!.findDefault(1)
+        if (infoList.isNotEmpty()) {
+            Toast.makeText(applicationContext, "已获取默认地址", Toast.LENGTH_SHORT).show()
+            val info = infoList[0]
+            val text = info.address
+            addressEditText!!.setText(text.toCharArray(), 0, text.length)
+            radioGroup!!.check(change(info.radio))
+        }
 
         findViewById<Button>(R.id.order_submit).setOnClickListener(this)
 
@@ -109,4 +123,13 @@ class OrderActivity : AppCompatActivity(), OnClickListener {
 
     // 使用扩展函数进行转化
     private fun Boolean.toInt() = if (this) 1 else 0
+
+    private fun change(id: Int): Int {
+        when (id) {
+            0 -> return R.id.wechat
+            1 -> return R.id.alipay
+            2 -> return R.id.visa
+        }
+        return R.id.wechat
+    }
 }

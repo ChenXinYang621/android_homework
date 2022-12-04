@@ -14,13 +14,15 @@ class MDataBaseHelper(context: Context) :
 
         const val ORDER_TABLE = "buy"
 
+        const val INFO_TABLE = "info"
+
         const val DB_NAME = "main.db"
 
         const val DB_VERSION = 1
 
         const val createProduct =
             "CREATE TABLE IF NOT EXISTS " + PRODUCT_TABLE +
-                    "(id integer NOT NULL PRIMARY KEY, " +
+                    "(id integer NOT NULL PRIMARY KEY AUTOINCREMENT, " +
                     "name varchar, " +
                     "kind integer, " +
                     "price integer, " +
@@ -41,14 +43,21 @@ class MDataBaseHelper(context: Context) :
                     "pay integer, " +
                     "feedback varchar, " +
                     "star double)"
+
+        const val createInfo =
+            "CREATE TABLE IF NOT EXISTS " + INFO_TABLE +
+                    "(id integer NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+                    "address varchar, " +
+                    "radio integer, " +
+                    "normal integer)"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(createProduct)
         db?.execSQL(createORDER)
+        db?.execSQL(createInfo)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-
     }
 }

@@ -2,8 +2,6 @@ package com.example.orderplatform.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
@@ -68,12 +66,13 @@ class Feedback : AppCompatActivity(), OnClickListener {
                 mComment!!.isFocusable = false
                 mComment!!.isFocusableInTouchMode = false
                 mRatingBar!!.rating = it2.toFloat()
+                mRatingBar!!.setIsIndicator(true)
             }
         }
 
         val toolbar: Toolbar = findViewById(R.id.feedback_toolbar)
         setSupportActionBar(toolbar)
-        toolbar.setNavigationOnClickListener() {
+        toolbar.setNavigationOnClickListener {
             finish()
         }
 

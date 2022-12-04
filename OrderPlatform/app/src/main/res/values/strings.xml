@@ -21,24 +21,29 @@
     <string name="content">this is a content</string>
     <string name="shop_cart_item">%1$s的数量是： %2$d</string>
     <string name="product_price">价格：%1$d</string>
-    <string name="鸡爪">十分的好吃</string>
-    <string name="烤猪排">干净又卫生</string>
-    <string name="小龙虾">麻麻辣辣</string>
-    <string name="冰红茶">康师傅冰红茶</string>
-    <string name="汉堡">少吃为好</string>
-    <string name="提拉米苏">一种带咖啡酒味儿的意大利甜点</string>
+    <string name="dinner1_word">十分的好吃</string>
+    <string name="dinner2_word">干净又卫生</string>
+    <string name="dinner3_word">麻麻辣辣</string>
+    <string name="drink1_word">康师傅冰红茶</string>
+    <string name="drink2_word">可口可乐（英语：Coca-Cola；简称Coke）是由美国可口可乐公司生产出品的一种可乐。
+        1886年5月8日，可口可乐在美国佐治亚州亚特兰大市诞生，
+        药师约翰·彭伯顿创造了一种风味糖浆并带到他的街区药房，将糖浆与汽水混合后，创造了这种口味独特、
+        可以在冷饮柜出售的软饮料，其合伙人兼会计弗兰克·罗宾逊将该饮料命名为“Coca‑Cola”（可口可乐），
+        并为之设计了沿用至今的带商标的独特字体。目前可口可乐在大多数国家的可乐市场处领导地位，每日在全球的销量达19亿份。</string>
+    <string name="fastfood1_word">少吃为好</string>
+    <string name="desert1_word">一种带咖啡酒味儿的意大利甜点</string>
     <string name="shop_cart_delete">delete</string>
     <string name="shop_cart_edit">edit</string>
     <string name="clear">clear</string>
     <string name="add_order">add order</string>
-    <string name="姓名">姓名</string>
+    <string name="姓名">姓名：</string>
     <string name="name">Name</string>
     <string name="填写姓名">填写姓名</string>
-    <string name="地址">地址</string>
-    <string name="address">Address</string>
-    <string name="other">Other</string>
-    <string name="备注">备注</string>
-    <string name="支付方式">支付方式</string>
+    <string name="地址">地址：</string>
+    <string name="address">填写地址</string>
+    <string name="other">如果有其他需要的话</string>
+    <string name="备注">备注：</string>
+    <string name="支付方式">支付方式：</string>
     <string name="微信">微信</string>
     <string name="支付宝">支付宝</string>
     <string name="银行卡">银行卡</string>
@@ -51,4 +56,8 @@
     <string name="feedback_comment">请对服务进行评价：</string>
     <string name="rate">rate</string>
     <string name="pay_not">未付款</string>
+    <string name="edit">修改</string>
+    <string name="search">搜索</string>
+    <string name="default_address">请设置默认配送地址和支付方式</string>
+    <string name="search_product">请输入食品名</string>
 </resources>

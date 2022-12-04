@@ -5,7 +5,7 @@ class Order(
     val other: String, val time: String, val radio: Int,
     val tool: Int, val touch: Int, var pay: Int
 ) {
-    var id: Int? = null
+    var id: Int = 1
     var feedback: String? = null
     var star: Double? = null
 

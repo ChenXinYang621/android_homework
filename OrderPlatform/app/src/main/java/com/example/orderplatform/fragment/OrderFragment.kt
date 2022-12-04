@@ -38,7 +38,6 @@ class OrderFragment : Fragment() {
 
     private fun initRecyclerView() {
         val orderList = orderDao!!.findAll()
-
         val mRecyclerView: RecyclerView = mView?.findViewById(R.id.recyclerview)!!
         val mAdapter = context?.let { OrderAdapter(it, orderList) }
         mRecyclerView.adapter = mAdapter

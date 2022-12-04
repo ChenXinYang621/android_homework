@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.orderplatform.view.MoreContent
 import com.example.orderplatform.R
 import com.example.orderplatform.entity.Product
+import com.example.orderplatform.view.MoreContent
 
 class ProductAdapter(
     private val context: Context,
@@ -52,7 +52,8 @@ class ProductAdapter(
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.mTitleView.text = productList[position].name
-        holder.mPriceView.text = context.getString(R.string.product_price, productList[position].price)
+        holder.mPriceView.text =
+            context.getString(R.string.product_price, productList[position].price)
         holder.mImageView.setImageResource(productList[position].picture)
     }
 

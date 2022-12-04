@@ -17,22 +17,18 @@ import com.example.orderplatform.R
 import com.example.orderplatform.adapter.ShopCartAdapter
 import com.example.orderplatform.database.MDataBaseHelper
 import com.example.orderplatform.database.ProductDao
+import com.example.orderplatform.entity.Product
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ShopCart : AppCompatActivity(), OnClickListener {
+
     private var mHelper: MDataBaseHelper? = null
 
     private var productDao: ProductDao? = null
 
     private var mAdapter: ShopCartAdapter? = null
 
-    private val mTitle = mutableListOf<String>()
-
-    private val mDescription = mutableListOf<Int>()
-
-    private val mPicture = mutableListOf<Int>()
-
-    private val mNum = mutableListOf<Int>()
+    private var productList: List<Product>? = null
 
     private var selectId = 0
 
@@ -44,7 +40,6 @@ class ShopCart : AppCompatActivity(), OnClickListener {
         toolbar.setNavigationOnClickListener {
             finish()
         }
-
         initData()
         findViewById<FloatingActionButton>(R.id.shop_cart_fab).setOnClickListener(this)
     }
@@ -52,8 +47,14 @@ class ShopCart : AppCompatActivity(), OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.shop_cart_fab -> {
-                val intent = Intent(this, OrderActivity::class.java)
-                startActivity(intent)
+                val count = productDao!!.findProductOverNum(0).size
+                if (count > 0) {
+                    val intent = Intent(this, OrderActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(applicationContext, "您还没选购任何商品", Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         }
     }
@@ -69,12 +70,13 @@ class ShopCart : AppCompatActivity(), OnClickListener {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("你确定要全部删除吗")
                 builder.setPositiveButton("确定") { _, _ ->
-                    for (str in mTitle) {
-                        productDao!!.updateNum(str, 0)
+                    for (product in productList!!) {
+                        productDao!!.updateNum(product.name, 0)
                     }
                     clearData()
                     initData()
-                    Toast.makeText(applicationContext, "全部删除已经完成", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "全部删除已经完成", Toast.LENGTH_SHORT)
+                        .show()
                 }
                 builder.setNegativeButton("取消") { _, _ ->
                 }
@@ -96,14 +98,15 @@ class ShopCart : AppCompatActivity(), OnClickListener {
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.shop_cart_delete -> {
-                val str = mTitle[mAdapter!!.mPosition]
+                val str = productList!![mAdapter!!.mPosition].name
                 productDao!!.updateNum(str, 0)
                 Toast.makeText(applicationContext, "${str}删除已经完成", Toast.LENGTH_SHORT).show()
                 clearData()
                 initData()
             }
+
             R.id.shop_cart_edit -> {
-                val str = mTitle[mAdapter!!.mPosition]
+                val str = productList!![mAdapter!!.mPosition].name
                 val builder = AlertDialog.Builder(this)
                 val numbers = arrayOf("1份", "2份", "3份", "4份", "5份")
                 builder.setTitle("请选择你需要的数量")
@@ -130,25 +133,15 @@ class ShopCart : AppCompatActivity(), OnClickListener {
     private fun initData() {
         mHelper = MDataBaseHelper(this)
         productDao = ProductDao(mHelper!!)
-        val productList = productDao!!.findProductOverNum(0)
-        for (product in productList) {
-            mTitle.add(product.name)
-            mDescription.add(product.word)
-            mPicture.add(product.picture)
-            mNum.add(product.num)
-        }
-
+        productList = productDao!!.findProductOverNum(0)
         val mRecyclerView: RecyclerView = findViewById(R.id.shop_cart_view)
         registerForContextMenu(mRecyclerView)
-        mAdapter = ShopCartAdapter(this, mTitle, mDescription, mPicture, mNum)
+        mAdapter = ShopCartAdapter(this, productList!!)
         mRecyclerView.adapter = mAdapter
         mRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     private fun clearData() {
-        mTitle.clear()
-        mDescription.clear()
-        mPicture.clear()
-        mNum.clear()
+        productList = mutableListOf()
     }
 }

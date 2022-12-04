@@ -6,13 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.orderplatform.database.MDataBaseHelper
-import com.example.orderplatform.database.OrderDao
-import com.example.orderplatform.database.ProductDao
-import com.example.orderplatform.fragment.ProductFragment
 import com.example.orderplatform.fragment.InfoFragment
 import com.example.orderplatform.fragment.OrderFragment
-import com.example.orderplatform.utils.BaseParcelable
+import com.example.orderplatform.fragment.ProductFragment
 
 class PagerAdapter(
     fragmentManager: FragmentManager,
@@ -35,9 +31,11 @@ class PagerAdapter(
                 productFragment.arguments = bundle
                 return productFragment
             }
+
             4 -> {
                 return InfoFragment()
             }
+
             5 -> {
                 return OrderFragment()
             }

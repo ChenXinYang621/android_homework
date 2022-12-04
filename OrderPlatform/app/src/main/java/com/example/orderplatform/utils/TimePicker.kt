@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 import com.example.orderplatform.view.OrderActivity
-import java.util.*
+import java.util.Calendar
 
 class TimePicker : DialogFragment(), OnTimeSetListener {
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {

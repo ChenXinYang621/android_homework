@@ -1,7 +1,6 @@
 package com.example.orderplatform.database
 
 import android.content.ContentValues
-import android.util.Log
 import com.example.orderplatform.entity.Product
 
 // 对 Product 表进行数据库操作
@@ -103,6 +102,36 @@ class ProductDao(private val mHelper: MDataBaseHelper) {
             null,
             "num>?",
             arrayOf(num.toString()),
+            null,
+            null,
+            null,
+            null
+        )
+        while (cursor.moveToNext()) {
+            val product = Product(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getInt(2),
+                cursor.getInt(3),
+                cursor.getInt(4),
+                cursor.getInt(5),
+                cursor.getInt(6)
+            )
+            ret.add(product)
+        }
+        cursor.close()
+        db.close()
+        return ret
+    }
+
+    fun searchProductByName(name: String): List<Product> {
+        val ret = mutableListOf<Product>()
+        val db = mHelper.readableDatabase
+        val cursor = db.query(
+            MDataBaseHelper.PRODUCT_TABLE,
+            null,
+            "name like '%$name%'",
+            null,
             null,
             null,
             null,
