@@ -1,11 +1,16 @@
 package com.example.orderplatform
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.NotificationCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -13,6 +18,7 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.orderplatform.adapter.PagerAdapter
 import com.example.orderplatform.database.MDataBaseHelper
+import com.example.orderplatform.database.OrderDao
 import com.example.orderplatform.database.ProductDao
 import com.example.orderplatform.entity.Product
 import com.example.orderplatform.utils.ScaleInTransformer
@@ -22,15 +28,27 @@ import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener {
-
     private var drawer: DrawerLayout? = null
 
     private var mViewPager: ViewPager2? = null
 
     private var mHelper: MDataBaseHelper? = null
 
+    private var mNotifyManager: NotificationManager? = null
+
     // 初始化 dao 层，进行 sql 操作
     private var productDao: ProductDao? = null
+
+    private var orderDao: OrderDao? = null
+
+    companion object {
+        private const val NOTIFICATION_ID = 0
+
+        private const val PRIMARY_CHANNEL_ID = "primary_notification_channel"
+
+        private const val ACTION_UPDATE_NOTIFICATION =
+            "com.example.orderplatform.ACTION_UPDATE_NOTIFICATION"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +58,7 @@ class MainActivity : AppCompatActivity(),
         // 创建数据库连接
         mHelper = MDataBaseHelper(this)
         productDao = ProductDao(mHelper!!)
+        orderDao = OrderDao(mHelper!!)
 
         val mNavigationView: NavigationView = findViewById(R.id.nav_view)
         mNavigationView.setNavigationItemSelectedListener(this)
@@ -71,7 +90,13 @@ class MainActivity : AppCompatActivity(),
         toolbar.setNavigationOnClickListener {
             drawer?.openDrawer(GravityCompat.START)
         }
+
         initData()
+        createNotificationChannel()
+
+        if (orderDao!!.findNotPay(0).isNotEmpty()) {
+            sendNotification()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -139,6 +164,53 @@ class MainActivity : AppCompatActivity(),
             }
         }
         return false
+    }
+
+    private fun sendNotification() {
+        val intent = Intent(ACTION_UPDATE_NOTIFICATION)
+        val updatePendingIntent =
+            PendingIntent.getBroadcast(
+                this,
+                NOTIFICATION_ID,
+                intent,
+                PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+            )
+        val notifyBuilder = getNotificationBuilder()
+        mNotifyManager!!.notify(NOTIFICATION_ID, notifyBuilder.build())
+    }
+
+    private fun getNotificationBuilder(): NotificationCompat.Builder {
+        val intent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+            this,
+            NOTIFICATION_ID,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+        return NotificationCompat.Builder(this, PRIMARY_CHANNEL_ID)
+            .setContentTitle("你有未支付的订单")
+            .setContentText("请尽快支付你的订单")
+            .setSmallIcon(R.drawable.ic_android)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setDefaults(NotificationCompat.DEFAULT_ALL)
+    }
+
+    private fun createNotificationChannel() {
+        mNotifyManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager?
+        val message = "未支付提醒"
+        val notificationChannel = NotificationChannel(
+            PRIMARY_CHANNEL_ID,
+            message,
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        notificationChannel.enableLights(true)
+        notificationChannel.enableLights(true)
+        notificationChannel.lightColor = Color.RED
+        notificationChannel.enableVibration(true)
+        notificationChannel.description = message
+        mNotifyManager!!.createNotificationChannel(notificationChannel)
     }
 
     private fun initData() {

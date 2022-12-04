@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent updateIntent = new Intent(ACTION_UPDATE_NOTIFICATION);
         PendingIntent updatePendingIntent = PendingIntent.getBroadcast
                 (this, NOTIFICATION_ID,
-                        updateIntent, PendingIntent.FLAG_ONE_SHOT);
+                        updateIntent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
         NotificationCompat.Builder notifyBuilder = getNotificationBuilder();
         notifyBuilder.addAction(R.drawable.ic_update,
                 "Update Notification",
